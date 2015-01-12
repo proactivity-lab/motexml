@@ -90,7 +90,7 @@
 0052,dt_timestamp_execution_ms
 0053,dt_timestamp_function_done_ms
 0054,-
-0055,-
+0055,dt_timestamp_start_s
 0056,dt_duration_s
 0057,dt_duration_ms
 0058,dt_age_s
@@ -185,7 +185,7 @@
 00AC,-
 00AD,dt_utc_tm_offset
 00AE,dt_offset_s
-00AF,-
+00AF,dt_time_passed_s
 #-------------------------------------------------------------------------------
 00B1,dt_time_passed_ms
 00B2,dt_latest
