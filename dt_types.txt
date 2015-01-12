@@ -198,8 +198,8 @@
 00B9,-
 00BA,dt_timestamp_local_ms
 00BB,dt_timestamp_local_s
-00BC,-
-00BD,-
+00BC,dt_uptime_ms
+00BD,dt_uptime_s
 00BE,dt_sunrise
 00BF,dt_sunset
 #-------------------------------------------------------------------------------
