@@ -96,7 +96,7 @@
 					return 0;
 				case dt_spiV:
 					for(value = 1; value <= 2; value++) {
-						locIndex = MLD_findObjectWithParameters(dt_loc, &ndex, &value, buffer, length, &object);
+						locIndex = MLD_findObjectWithParameters(dt_location, &ndex, &value, buffer, length, &object);
 						if(locIndex > 0) {
 							if(MLD_findObjectWithParameters(dt_locX, &locIndex, NULL, buffer, length, &object)) {
 								if(object.valueIsPresent) {

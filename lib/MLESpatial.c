@@ -111,7 +111,7 @@
         uint8_t position = 0; // Position of the interval object
 
         if(enc->buf != NULL) {
-            position = MLE_appendObjectWithValues(enc, dt_loc, subject, value);
+            position = MLE_appendObjectWithValues(enc, dt_location, subject, value);
             if(position > 0) {
                 if(MLE_appendObjectWithValues(enc, dt_locX, position, &x) > 0) {
                     if(MLE_appendObjectWithValues(enc, dt_locY, position, &y) > 0) {

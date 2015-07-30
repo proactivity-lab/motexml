@@ -4,7 +4,7 @@
 0001,dt_packet
 0002,- # dt_object DISABLED: # contents should be another dt_*
 0003,- # dt_buffer DISABLED: # a byte buffer
-0004,dt_value # same as the value field of another object
+0004,dt_value
 0005,dt_subscription
 0006,dt_subscriptions
 0007,dt_priority
@@ -15,7 +15,7 @@
 000C,dt_length # The length of something
 000D,-
 000E,dt_type
-000F,-
+000F,dt_data
 #-------------------------------------------------------------------------------
 0010,- # dt_pIndex # DEPRECATED?
 0011,dt_param
@@ -71,7 +71,7 @@
 0040,dt_coordSys
 0041,dt_spiC
 0042,dt_spiA
-0043,dt_loc
+0043,dt_location
 0044,dt_locX
 0045,dt_locY
 0046,dt_locZ

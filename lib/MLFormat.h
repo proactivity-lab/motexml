@@ -38,6 +38,7 @@
 #define MLFORMAT_H_
 
 #include "ML.h"
+#include "MLO.h"
 #include "MLD.h"
 #include "MLI.h"
 #include "MLE.h"

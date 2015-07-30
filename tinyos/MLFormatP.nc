@@ -18,6 +18,7 @@ implementation {
 		return call LocalTime.get();
 	}
 
+	#include "MLO.c"
 	#include "MLE.c"
 	#include "MLD.c"
 	#include "MLI.c"
