@@ -47,9 +47,10 @@
 	 */
 	typedef struct ml_encoder_t {
 		uint8_t* buf; /**< Buffer pointer */
-		uint8_t usedSpace; /**< Currently used space */
-		uint8_t totalSpace; /**< Size of the buffer */
+		uint16_t usedSpace; /**< Currently used space */
+		uint16_t totalSpace; /**< Size of the buffer */
 		uint8_t currentPosition; /**< Current count of objects */
+		uint8_t errors; /**< Number of errors encountered during encode calls. */
 	} ml_encoder_t;
 
 	/**
@@ -60,14 +61,14 @@
 	 * @param length
 	 * @return
 	 */
-	LIBEXPORT error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Finalizes the buffer.
 	 *
 	 * @return Length of the data in the buffer.
 	 */
-	LIBEXPORT uint8_t MLE_finalize(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_finalize(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Reinitialize an encoder with the buffer for additional appends and editing.
@@ -78,7 +79,7 @@
 	 * @param totalLength Total length of the buffer, >= length.
 	 * @return SUCCESS, if the contents of the buffer made sense.
 	 */
-	LIBEXPORT error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint8_t length, uint8_t totalLength) ATTR_TINYOS_AT_C;
+	LIBEXPORT error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length, uint16_t totalLength) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Append object with the specified parameters.
@@ -139,9 +140,11 @@
 	 */
 	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type) ATTR_TINYOS_AT_C;
 
-	LIBEXPORT uint8_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 
-	LIBEXPORT uint8_t MLE_spaceUsed(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+
+	LIBEXPORT uint8_t MLE_errors(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Deletes the object at the specified location, and all sub-objects.
@@ -153,13 +156,13 @@
 
 	/* Protected */
 
-    uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+    uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
 	uint8_t pMLE_sizeOf(int32_t value) ATTR_TINYOS_AT_C;
 	uint8_t pMLE_sizeOfUnsigned(uint32_t value) ATTR_TINYOS_AT_C;
 	void pMLE_appendUnsignedByte(ml_encoder_t* enc, uint8_t value) ATTR_TINYOS_AT_C;
 	void pMLE_appendInteger(ml_encoder_t* enc, uint8_t size, int32_t value) ATTR_TINYOS_AT_C;
 	void pMLE_appendUnsignedInteger(ml_encoder_t* enc, uint8_t size, uint32_t value) ATTR_TINYOS_AT_C;
-	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint8_t offset, uint8_t number) ATTR_TINYOS_AT_C;
+	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint16_t offset, uint8_t number) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Information for memory allocation in Python.

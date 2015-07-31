@@ -71,11 +71,11 @@
 		}
 	}
 
-	uint8_t pMLD_getObjectAt(uint8_t offset, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+	uint16_t pMLD_getObjectAt(uint16_t offset, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
 		uint8_t subjectSize = (buffer[offset] & ML_SUBJ_LOC) >> ML_SUBJ_SHF;
 		uint8_t typeSize    = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		uint8_t valueSize   = (buffer[offset] & ML_VALU_LOC) >> ML_VALU_SHF;
-		uint8_t nextOffset = offset + 1 + subjectSize + typeSize + valueSize;
+		uint16_t nextOffset = offset + 1 + subjectSize + typeSize + valueSize;
 
 		if(subjectSize == 1) object->subject = pMLD_readUnsignedByte(buffer + offset + 1);
 		else object->subject = 0;
@@ -102,17 +102,17 @@
 		return length + 1; // Over the end of the buffer
 	}
 
-	uint8_t pMLD_getTypeAt(uint8_t offset, uint8_t buffer[], uint8_t length, uint32_t* type) ATTR_TINYOS_AT_C {
+	uint8_t pMLD_getTypeAt(uint16_t offset, uint8_t buffer[], uint16_t length, uint32_t* type) ATTR_TINYOS_AT_C {
 		uint8_t typeSize = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		*type = pMLD_readUnsignedInteger(typeSize, buffer + offset + 1);
 		return typeSize;
 	}
 
-	uint8_t pMLD_getNextOffset(uint8_t offset, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	uint16_t pMLD_getNextOffset(uint16_t offset, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
 		uint8_t subjectSize = (buffer[offset] & ML_SUBJ_LOC) >> ML_SUBJ_SHF;
 		uint8_t typeSize    = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		uint8_t valueSize   = (buffer[offset] & ML_VALU_LOC) >> ML_VALU_SHF;
-		uint8_t nextOffset = offset + 1 + subjectSize + typeSize + valueSize;
+		uint16_t nextOffset = offset + 1 + subjectSize + typeSize + valueSize;
 
 		if((buffer[offset] & ML_BBUF_LOC)) { // A byte buffer
 			nextOffset = nextOffset + 1 + pMLD_readUnsignedByte(buffer + nextOffset); // Adds 1 length byte and data bytes
@@ -123,9 +123,9 @@
 		return length + 1; // Over the end of the buffer
 	}
 
-	uint8_t pMLD_getOffsetOf(uint8_t buffer[], uint8_t length, uint8_t number) ATTR_TINYOS_AT_C {
+	uint16_t pMLD_getOffsetOf(uint8_t buffer[], uint16_t length, uint8_t number) ATTR_TINYOS_AT_C {
 		uint8_t i = 0;
-		uint8_t offset = 0;
+		uint16_t offset = 0;
 
 		// Shuffle through the objects
 		for(i=1;i<number;i++) {
@@ -137,9 +137,9 @@
 
 	// Public
 
-	uint8_t MLD_getObjectWithIndex(uint8_t ndex, uint8_t buffer[], uint8_t length, ml_object_t *object) ATTR_TINYOS_AT_C {
+	uint8_t MLD_getObjectWithIndex(uint8_t ndex, uint8_t buffer[], uint16_t length, ml_object_t *object) ATTR_TINYOS_AT_C {
 		uint8_t i = 0;
-		uint8_t offset = 0;
+		uint16_t offset = 0;
 
 		// Shuffle through the objects
 		for(i=1;i<ndex;i++) {
@@ -155,8 +155,8 @@
 		return 0;
 	}
 
-	uint8_t MLD_findObjectWithParameters(uint32_t type, uint8_t* subject, int32_t* value, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
-		uint8_t offset = 0;
+	uint8_t MLD_findObjectWithParameters(uint32_t type, uint8_t* subject, int32_t* value, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+		uint16_t offset = 0;
 		uint8_t position = 0;
 
 		while(offset < length) {
@@ -179,24 +179,24 @@
 		return 0;
 	}
 
-	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
 		return MLD_findObjectWithParameters(type, &subject, &value, buffer, length, object);
 	}
 
-	uint8_t MLD_findOV(uint32_t type, int32_t value, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+	uint8_t MLD_findOV(uint32_t type, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
 		return MLD_findObjectWithParameters(type, NULL, &value, buffer, length, object);
 	}
 
-	uint8_t MLD_findOS(uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+	uint8_t MLD_findOS(uint32_t type, uint8_t subject, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
 		return MLD_findObjectWithParameters(type, &subject, NULL, buffer, length, object);
 	}
 
-	uint8_t MLD_findO(uint32_t type, uint8_t buffer[], uint8_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
+	uint8_t MLD_findO(uint32_t type, uint8_t buffer[], uint16_t length, ml_object_t* object) ATTR_TINYOS_AT_C {
 		return MLD_findObjectWithParameters(type, NULL, NULL, buffer, length, object);
 	}
 
-	uint8_t MLD_getObjectCount(uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
-		uint8_t offset = 0;
+	uint8_t MLD_getObjectCount(uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
+		uint16_t offset = 0;
 		uint8_t position = 0;
 
 		while(offset < length) {

@@ -102,7 +102,7 @@
 	 * @param slen Length of the source buffer.
 	 * @param dsubject Subject of the top-level object to be copied in the new buffer.
 	 * @param enc Initialized encoder for the new tree.
-	 * @return 0 if fails(contents of enc are unaltered) index of copied tree root otherwise.
+	 * @return 0 if fails(contents of enc are unaltered, but errors is incremented) index of copied tree root otherwise.
 	 */
 	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint8_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 

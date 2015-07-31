@@ -106,10 +106,12 @@
 					dsub = MLE_appendObject(enc, &object);
 					ret = dsub;
 					if(dsub == 0) {
+						enc->errors++;
 						return 0; // return EINVAL;
 					}
 				}
 				else {
+					enc->errors++;
 					return 0; // return FAIL;
 				}
 			}
@@ -127,6 +129,7 @@
 					dsub = MLE_appendObject(enc, &object);
 					if(dsub == 0) {
 						*enc = backup;
+						enc->errors++;
 						return 0; // return EINVAL;
 					}
 					if(ret == 0)
@@ -154,6 +157,7 @@
 		else {
 			// return EINVAL; // Failed to append stuff to the new buffer
 		}
+		enc->errors++;
 		return 0; // Return FAIL;
 	}
 
