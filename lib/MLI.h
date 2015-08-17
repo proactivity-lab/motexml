@@ -49,9 +49,9 @@
 
 	typedef struct ml_iterator_t {
 		uint8_t* buf;
-		uint8_t length;
-		uint8_t offset;
-		uint8_t nextOffset;
+		uint16_t length;
+		uint16_t offset;
+		uint16_t nextOffset;
 		uint8_t index;
 	} ml_iterator_t;
 
@@ -64,7 +64,7 @@
 	 *
 	 * @return Normally SUCCESS, only FAIL if buffer is NULL.
 	 */
-	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Resets the iterator to the first object in the previously provided buffer.
@@ -104,11 +104,11 @@
 	 * @param enc Initialized encoder for the new tree.
 	 * @return 0 if fails(contents of enc are unaltered, but errors is incremented) index of copied tree root otherwise.
 	 */
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint8_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 
 	/* Protected */
-	uint8_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
-	uint8_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
+	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
+	uint16_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
 
 	/**
 	 * Information for memory allocation in Python.

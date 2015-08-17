@@ -35,7 +35,7 @@
 001F,dt_active
 #-------------------------------------------------------------------------------
 0020,- # dt_aType DISABLED: not sure where this was used
-0021,- # dt_aId # DISABLED: in most cases use provider/client/producer/consumer
+0021,dt_address,0x%04x
 0022,- # dt_dataId # DISABLED: in most cases use subscription_id
 0023,- # dt_mapD DISABLED
 0024,- # dt_mapDD DISABLED

@@ -41,7 +41,7 @@
 #include <stdio.h> // Needed for NULL
 #endif /* __tinyos__ */
 
-	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
 		iter->buf = buffer;
 		iter->length = length;
 		return MLI_reset(iter);
@@ -86,15 +86,15 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sb, uint8_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sb, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C {
 		ml_encoder_t backup = *enc;
 		ml_iterator_t iter;
 		ml_object_t object;
 		if(MLI_initialize(&iter, sb, slength) == SUCCESS) {
 			uint8_t sstack[MLI_ICOPY_MAX_STACK];
 			uint8_t dstack[MLI_ICOPY_MAX_STACK];
-			uint8_t iOffset[MLI_ICOPY_MAX_STACK];
-			uint8_t iNextOffset[MLI_ICOPY_MAX_STACK];
+			uint16_t iOffset[MLI_ICOPY_MAX_STACK];
+			uint16_t iNextOffset[MLI_ICOPY_MAX_STACK];
 			uint8_t iIndex[MLI_ICOPY_MAX_STACK];
 			uint8_t stptr = 0;
 			uint8_t ssub = sindex;
@@ -161,11 +161,11 @@
 		return 0; // Return FAIL;
 	}
 
-	uint8_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
+	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
 		return iter->offset;
 	}
 
-	uint8_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
+	uint16_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
 		return iter->nextOffset;
 	}
 

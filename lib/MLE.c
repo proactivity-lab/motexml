@@ -142,7 +142,7 @@
 		ml_iterator_t iter;
 		ml_object_t object;
 		uint8_t i, j;
-		uint8_t delOffset = 0;
+		uint16_t delOffset = 0;
 		uint8_t currentDel = number;
 		if(enc->buf != NULL) {
 			if(MLI_initialize(&iter, enc->buf, enc->usedSpace) == SUCCESS) {
@@ -160,13 +160,14 @@
 						if(currentDel == number) { // Did not find any (more) sub-objects
 							delOffset = pMLD_getOffsetOf(enc->buf, enc->usedSpace, number);
 							if(delOffset < enc->usedSpace) { // Make sure that the object actually exists
-								pMLE_deleteObjectAt(enc, delOffset, number);
-								return number;
+								return pMLE_deleteObjectAt(enc, delOffset, number);
 							}
 							return 0;
 						}
 						else { // A sub-object without any sub-objects - can be removed
-							pMLE_deleteObjectAt(enc, delOffset, currentDel);
+							if(pMLE_deleteObjectAt(enc, delOffset, currentDel) != currentDel) {
+								return 0;
+							}
 							MLI_initialize(&iter, enc->buf, enc->usedSpace);
 							currentDel = number; // Start looking for sub-objects again
 						}
