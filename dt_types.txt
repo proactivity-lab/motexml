@@ -2,8 +2,8 @@
 #-------------------------------------------------------------------------------
 0000,dt_none
 0001,dt_packet
-0002,- # dt_object DISABLED: # contents should be another dt_*
-0003,- # dt_buffer DISABLED: # a byte buffer
+0002,-
+0003,-
 0004,dt_value
 0005,dt_subscription
 0006,dt_subscriptions
@@ -209,9 +209,9 @@
 00C3,-
 00C4,-
 00C5,-
-00C6,-
-00C7,-
-00C8,-
+00C6,dt_object
+00C7,dt_threat
+00C8,dt_magnetic
 00C9,dt_acoustic
 00CA,dt_angle_deg
 00CB,-
@@ -251,7 +251,7 @@
 00EB,-
 00EC,-
 00ED,-
-00EE,-
+00EE,dt_raw
 00EF,dt_adc_raw
 #-------------------------------------------------------------------------------
 00F0,dt_orientation
