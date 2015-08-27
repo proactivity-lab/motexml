@@ -14,8 +14,8 @@
 000B,dt_bits # a bunch of bits
 000C,dt_length # The length of something
 000D,-
-000E,dt_type
-000F,dt_data
+000E,dt_type,dt_types
+000F,dt_data,dt_types
 #-------------------------------------------------------------------------------
 0010,dt_confidence_pct
 0011,dt_param
@@ -218,7 +218,7 @@
 00CC,-
 00CD,-
 00CE,-
-00CF,-
+00CF,dt_output_pct
 #-------------------------------------------------------------------------------
 00D0,dt_producer,0x%04x
 00D1,dt_consumer,0x%04x
