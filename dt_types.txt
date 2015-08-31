@@ -260,8 +260,8 @@
 00F3,dt_latitude
 00F4,dt_longitude
 00F5,dt_elevation
-00F6,dt_utm_x
-00F7,dt_utm_y
+00F6,dt_utm_easting
+00F7,dt_utm_northing
 00F8,dt_utm_zone
 00F9,dt_utm_band
 00FA,dt_pitch
