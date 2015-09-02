@@ -214,7 +214,7 @@
 00C8,dt_magnetic
 00C9,dt_acoustic
 00CA,dt_angle_deg
-00CB,-
+00CB,dt_people_count
 00CC,-
 00CD,-
 00CE,-
