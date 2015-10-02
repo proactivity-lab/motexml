@@ -325,7 +325,7 @@ AAAD,-
 AAAE,-
 AAAF,-
 #-------------------------------------------------------------------------------
-AAB0,dt_power_on_time
+AAB0,dt_power_on_time_s
 AAB1,-
 AAB2,-
 AAB3,-
