@@ -3,7 +3,7 @@
 0000,dt_none
 0001,dt_packet
 0002,-
-0003,-
+0003,dt_array
 0004,dt_value
 0005,dt_subscription
 0006,dt_subscriptions
@@ -34,11 +34,11 @@
 001E,dt_false
 001F,dt_active
 #-------------------------------------------------------------------------------
-0020,- # dt_aType DISABLED: not sure where this was used
+0020,-
 0021,dt_address,0x%04x
-0022,- # dt_dataId # DISABLED: in most cases use subscription_id
-0023,- # dt_mapD DISABLED
-0024,- # dt_mapDD DISABLED
+0022,-
+0023,-
+0024,-
 0025,dt_event # An event id of some sort
 0026,dt_constraint_spatial
 0027,dt_constraint_temporal
@@ -60,7 +60,7 @@
 0036,dt_battery_V
 0037,dt_frq #frequency of smt
 0038,dt_power # TODO Define in doc
-0039,dt_voltage # TODO Define in doc
+0039,dt_voltage_V # TODO Define in doc
 003A,dt_rssi # TODO Define in doc
 003B,dt_distance # TODO Define in doc
 003C,dt_movement_count
