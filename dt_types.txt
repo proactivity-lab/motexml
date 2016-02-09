@@ -234,8 +234,8 @@
 00DB,-
 00DC,-
 00DD,-
-00DE,-
-00DF,-
+00DE,dt_ambient_temperature_C
+00DF,dt_ambient_temperature_F
 #-------------------------------------------------------------------------------
 00E0,dt_power_W
 00E1,dt_energy_Wh
