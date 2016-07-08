@@ -296,7 +296,7 @@
 0114,dt_count_in
 0115,dt_count_out
 0116,dt_movement #used in Stram project
-0117,-
+0117,dt_movement_delta
 0118,-
 0119,-
 011A,-
