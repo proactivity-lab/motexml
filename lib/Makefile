@@ -45,7 +45,7 @@ install: library
 	cp $(BIN_DIR)/$(PLATFORM)/libmlformat.so $(LIB_DIR)/libmlformat.so
 
 types: setup
-	python $(ROOT_DIR)/../python/gentypes.py --input $(ROOT_DIR)/../dt_types.txt --output $(BIN_DIR)/dt_types.h
+	motexml-generate --input $(ROOT_DIR)/../dt_types.txt --output $(BIN_DIR)/dt_types.h
 
 test:
 	@echo $(objects1) >> $(LOGFILE)
