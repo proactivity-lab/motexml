@@ -140,6 +140,29 @@
 	 */
 	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type) ATTR_TINYOS_AT_C;
 
+	/**
+	 * Append an object with a buffer and no value.
+	 * @param enc The encoder.
+	 * @param type Object type.
+	 * @param subject Subject, can be 0.
+	 * @param buffer - Raw data buffer.
+	 * @param length - Data buffer length.
+	 * @return
+	 */
+	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+
+	/**
+	 * Append an object with a buffer and value.
+	 * @param enc The encoder.
+	 * @param type Object type.
+	 * @param subject Subject, can be 0.
+	 * @param value - Value, can be NULL.
+	 * @param buffer - Raw data buffer.
+	 * @param length - Data buffer length.
+	 * @return
+	 */
+	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+
 	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
 
 	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc) ATTR_TINYOS_AT_C;

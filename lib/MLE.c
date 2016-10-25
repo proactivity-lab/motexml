@@ -71,6 +71,14 @@
 		return MLE_appendObjectWithValues(enc, type, 0, NULL);
 	}
 
+	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+		return pMLE_append(enc, type, subject, NULL, buffer, length);
+	}
+
+	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+		return pMLE_append(enc, type, subject, &value, buffer, length);
+	}
+
 	// Info and setup functions
 
 	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C {
