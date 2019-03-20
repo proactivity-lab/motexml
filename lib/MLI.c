@@ -37,27 +37,25 @@
 #include "MLI.h"
 #include "MLD.h"
 
-#ifndef __tinyos__
 #include <stdio.h> // Needed for NULL
-#endif /* __tinyos__ */
 
-	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
+	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) {
 		iter->buf = buffer;
 		iter->length = length;
 		return MLI_reset(iter);
 	}
 
-	LIBEXPORT error_t MLI_reset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
+	LIBEXPORT ml_error_t MLI_reset(ml_iterator_t* iter) {
 		if(iter->buf != NULL) {
 			iter->offset = 0;
 			iter->nextOffset = 0;
 			iter->index = 0;
-			return SUCCESS;
+			return ML_SUCCESS;
 		}
-		return FAIL;
+		return ML_FAIL;
 	}
 
-	LIBEXPORT uint8_t MLI_next(ml_iterator_t* iter, ml_object_t* object) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_next(ml_iterator_t* iter, ml_object_t* object) {
 		if(iter->nextOffset < iter->length) {
 			iter->offset = iter->nextOffset;
 			iter->nextOffset = pMLD_getObjectAt(iter->nextOffset, iter->buf, iter->length, object);
@@ -70,7 +68,7 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLI_nextWithSubject(ml_iterator_t* iter, uint8_t subject, ml_object_t* object) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_nextWithSubject(ml_iterator_t* iter, uint8_t subject, ml_object_t* object) {
 		uint8_t ndex = 0;
 		while((ndex = MLI_next(iter, object)) > 0) {
 			if(object->subject == subject) return ndex;
@@ -78,7 +76,7 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLI_nextWithType(ml_iterator_t* iter, uint32_t type, ml_object_t* object) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_nextWithType(ml_iterator_t* iter, uint32_t type, ml_object_t* object) {
 		uint8_t ndex = 0;
 		while((ndex = MLI_next(iter, object)) > 0) {
 			if(object->type == type) return ndex;
@@ -86,11 +84,11 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sb, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sb, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) {
 		ml_encoder_t backup = *enc;
 		ml_iterator_t iter;
 		ml_object_t object;
-		if(MLI_initialize(&iter, sb, slength) == SUCCESS) {
+		if(MLI_initialize(&iter, sb, slength) == ML_SUCCESS) {
 			uint8_t sstack[MLI_ICOPY_MAX_STACK];
 			uint8_t dstack[MLI_ICOPY_MAX_STACK];
 			uint16_t iOffset[MLI_ICOPY_MAX_STACK];
@@ -112,7 +110,7 @@
 				}
 				else {
 					enc->errors++;
-					return 0; // return FAIL;
+					return 0; // return ML_FAIL;
 				}
 			}
 			while(stptr < MLI_ICOPY_MAX_STACK) {
@@ -141,7 +139,7 @@
 				}
 				else {
 					if(stptr == 0) {
-						return ret; // return SUCCESS;
+						return ret; // return ML_SUCCESS;
 					}
 					stptr--;
 					iter.offset = iOffset[stptr];
@@ -158,18 +156,18 @@
 			// return EINVAL; // Failed to append stuff to the new buffer
 		}
 		enc->errors++;
-		return 0; // Return FAIL;
+		return 0; // Return ML_FAIL;
 	}
 
-	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
+	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter) {
 		return iter->offset;
 	}
 
-	uint16_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C {
+	uint16_t MLI_getNextOffset(ml_iterator_t* iter) {
 		return iter->nextOffset;
 	}
 
-	LIBEXPORT uint8_t MLI_iteratorSize() ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLI_iteratorSize() {
 		return sizeof(ml_iterator_t);
 	}
 

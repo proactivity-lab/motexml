@@ -37,7 +37,7 @@
 #include "MLObjects.h"
 #include "ML.h"
 
-	bool MLObjects_isSimpleConditionObject(int32_t type) ATTR_TINYOS_AT_C {
+	bool MLObjects_isSimpleConditionObject(int32_t type) {
 		switch(type) {
 			case dt_present:
 			case dt_less:
@@ -52,7 +52,7 @@
 		return FALSE;
 	}
 
-	bool MLObjects_isSpatialObject(int32_t type) ATTR_TINYOS_AT_C {
+	bool MLObjects_isSpatialObject(int32_t type) {
 		switch(type) {
 			case dt_spiC:
 			case dt_spiA:
@@ -64,7 +64,7 @@
 		return FALSE;
 	}
 
-	bool MLObjects_isTemporalObject(int32_t type) ATTR_TINYOS_AT_C {
+	bool MLObjects_isTemporalObject(int32_t type) {
 		switch(type) {
 			case dt_timeR:
 			case dt_timeAbs:

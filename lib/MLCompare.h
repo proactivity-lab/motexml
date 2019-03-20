@@ -104,7 +104,7 @@
 	 * @param length Buffer length.
 	 * @return SUCCESS if no errors encountered.
 	 */
-	error_t MLCompare_initialize(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	error_t MLCompare_initialize(ml_compare_t* cmp, uint8_t buffer[], uint8_t length);
 
 	/**
 	 *	Check if the entry described in the buffer satisfies the initialized conditions.
@@ -113,15 +113,15 @@
 	 * @param length Buffer length.
 	 * @return FALSE if does not satisfy or not initialized.
 	 */
-	bool MLCompare_satisfies(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	bool MLCompare_satisfies(ml_compare_t* cmp, uint8_t buffer[], uint8_t length);
 
-	bool MLCompare_satisfiesSimpleConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
-	bool MLCompare_satisfiesTemporalConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
-	bool MLCompare_satisfiesSpatialConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	bool MLCompare_satisfiesSimpleConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length);
+	bool MLCompare_satisfiesTemporalConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length);
+	bool MLCompare_satisfiesSpatialConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length);
 
 	/* Debug functions */
 
-	void MLCompare_printConditions() ATTR_TINYOS_AT_C;
+	void MLCompare_printConditions();
 
 	/**
 	 * Debug function
@@ -129,7 +129,7 @@
 	 * @param type
 	 * @param value
 	 */
-	void MLCompare_printFailReasonNotPresent(int32_t type, bool value) ATTR_TINYOS_AT_C;
+	void MLCompare_printFailReasonNotPresent(int32_t type, bool value);
 
 	/**
 	 * Debug function
@@ -139,7 +139,7 @@
 	 * @param cvalue
 	 * @param ovalue
 	 */
-	void MLCompare_printFailReason(int32_t type, uint8_t oper, int32_t cvalue, int32_t ovalue) ATTR_TINYOS_AT_C;
+	void MLCompare_printFailReason(int32_t type, uint8_t oper, int32_t cvalue, int32_t ovalue);
 
 	/**
 	 * Debug function
@@ -149,6 +149,6 @@
 	 * @param length
 	 * @return
 	 */
-	error_t MLCompare_operatorToString(uint8_t value, char *buf, uint8_t length) ATTR_TINYOS_AT_C;
+	error_t MLCompare_operatorToString(uint8_t value, char *buf, uint8_t length);
 
 #endif /* MLCOMPARE_H_ */

@@ -39,9 +39,7 @@
 #include "ML.h"
 #include "MLE.h"
 
-#ifndef __tinyos__
 #include <stdio.h>
-#endif /* __tinyos__ */
 
 #ifndef MLI_ICOPY_MAX_STACK
 #define MLI_ICOPY_MAX_STACK 12
@@ -64,35 +62,35 @@
 	 *
 	 * @return Normally SUCCESS, only FAIL if buffer is NULL.
 	 */
-	LIBEXPORT error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length);
 
 	/**
 	 * Resets the iterator to the first object in the previously provided buffer.
 	 *
 	 * @return Succeeds if the iterator has been previously initialized.
 	 */
-	LIBEXPORT error_t MLI_reset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
+	LIBEXPORT ml_error_t MLI_reset(ml_iterator_t* iter);
 
 	/**
 	 * Retrieves the next object from the buffer.
 	 *
 	 * @return Index of the object or 0 if no more objects in the buffer.
 	 */
-	LIBEXPORT uint8_t MLI_next(ml_iterator_t* iter, ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_next(ml_iterator_t* iter, ml_object_t* object);
 
 	/**
 	 * Retrieves the next object with the specified subject value.
 	 *
 	 * @return Index of the object or 0 if no more objects in the buffer.
 	 */
-	LIBEXPORT uint8_t MLI_nextWithSubject(ml_iterator_t* iter, uint8_t subject, ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_nextWithSubject(ml_iterator_t* iter, uint8_t subject, ml_object_t* object);
 
 	/**
 	 * Retrieves the next object with the specified type value.
 	 *
 	 * @return Index of the object or 0 if no more objects in the buffer.
 	 */
-	LIBEXPORT uint8_t MLI_nextWithType(ml_iterator_t* iter, uint32_t type, ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_nextWithType(ml_iterator_t* iter, uint32_t type, ml_object_t* object);
 
 	/**
 	 * Copy a subtree from sb to encoder with subject dsubject.
@@ -104,15 +102,15 @@
 	 * @param enc Initialized encoder for the new tree.
 	 * @return 0 if fails(contents of enc are unaltered, but errors is incremented) index of copied tree root otherwise.
 	 */
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc);
 
 	/* Protected */
-	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
-	uint16_t MLI_getNextOffset(ml_iterator_t* iter) ATTR_TINYOS_AT_C;
+	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter);
+	uint16_t MLI_getNextOffset(ml_iterator_t* iter);
 
 	/**
 	 * Information for memory allocation in Python.
 	 */
-	LIBEXPORT uint8_t MLI_iteratorSize() ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLI_iteratorSize();
 
 #endif /* MLI_H_ */

@@ -6,22 +6,22 @@ BIN_DIR = ../bin
 LIB_DIR ?= /opt/prolib
 LOGFILE = $(BIN_DIR)/$(PLATFORM)/make.log
 
-ifndef PROLAB_COMMON_DIR
-    $(error Please define PROLAB_COMMON_DIR containing Makefiles and type headers)
-endif
-
-include $(PROLAB_COMMON_DIR)/Platform.mk
-
 ALL_INCS += -I $(ROOT_DIR) -I $(BIN_DIR) -I $(BIN_DIR)/$(PLATFORM)
 
 CFLAGS = -Wall -fPIC $(OPT)
 COMPILE = $(CXX) $(CFLAGS) $(ALL_INCS) -c
 
+ifeq ($(OS),Windows_NT)
+	CFLAGS += -DLIBEXPORT="__declspec(dllexport)"
+else
+	CFLAGS += -DLIBEXPORT="extern \"C\""
+endif
+
 LIB_OBJECTS = MLO.o MLD.o MLI.o MLE.o
 
 EXTRA_OBJECTS = MLObjects.o MLESpatial.o MLDSpatial.o MLETemporal.o MLDTemporal.o MLCompare.o MLText.o MLPrint.o
 
-all: types library
+all: library
 
 clean:
 	-rm -f $(BIN_DIR)/$(PLATFORM)/*.o
@@ -43,9 +43,6 @@ extra: setup $(EXTRA_OBJECTS)
 
 install: library
 	cp $(BIN_DIR)/$(PLATFORM)/libmlformat.so $(LIB_DIR)/libmlformat.so
-
-types: setup
-	motexml-generate --input $(ROOT_DIR)/../dt_types.txt --output $(BIN_DIR)/dt_types.h
 
 test:
 	@echo $(objects1) >> $(LOGFILE)

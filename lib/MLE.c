@@ -39,84 +39,82 @@
 #include "MLD.h"
 #include "MLI.h"
 
-#ifndef __tinyos__
 #include <stdio.h> // Needed for NULL
 #include <string.h>
-#endif /* __tinyos__ */
 
-	LIBEXPORT uint8_t MLE_appendObjectWithValues(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendObjectWithValues(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value) {
 		return pMLE_append(enc, type, subject, value, NULL, 0);
 	}
 
-	LIBEXPORT uint8_t MLE_appendObject(ml_encoder_t* enc, ml_object_t* object) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendObject(ml_encoder_t* enc, ml_object_t* object) {
 		if(object != NULL) { // Initialization is currently checked by the other appendObject
 			return pMLE_append(enc, object->type, object->subject, object->valueIsPresent ? &(object->value) : NULL, object->buffer, object->bufferLength);
 		}
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLE_appendOSV(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendOSV(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value) {
 		return MLE_appendObjectWithValues(enc, type, subject, &value);
 	}
 
-	LIBEXPORT uint8_t MLE_appendOV(ml_encoder_t* enc, uint32_t type, int32_t value) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendOV(ml_encoder_t* enc, uint32_t type, int32_t value) {
 		return MLE_appendObjectWithValues(enc, type, 0, &value);
 	}
 
-	LIBEXPORT uint8_t MLE_appendOS(ml_encoder_t* enc, uint32_t type, uint8_t subject) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendOS(ml_encoder_t* enc, uint32_t type, uint8_t subject) {
 		return MLE_appendObjectWithValues(enc, type, subject, NULL);
 	}
 
-	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type) {
 		return MLE_appendObjectWithValues(enc, type, 0, NULL);
 	}
 
-	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length) {
 		return pMLE_append(enc, type, subject, NULL, buffer, length);
 	}
 
-	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length) {
 		return pMLE_append(enc, type, subject, &value, buffer, length);
 	}
 
 	// Info and setup functions
 
-	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) {
 		if(enc->buf != NULL) {
 			return enc->totalSpace - enc->usedSpace;
 		}
 		return 0;
 	}
 
-	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc) {
 		if(enc->buf != NULL) {
 			return enc->usedSpace;
 		}
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLE_errors(ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_errors(ml_encoder_t* enc) {
 		return enc->errors;
 	}
 
-	LIBEXPORT error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
+	LIBEXPORT ml_error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length) {
 		if(buffer != NULL && length >= 2) {
 			enc->buf = buffer;
 			enc->totalSpace = length;
 			enc->usedSpace = 0;
 			enc->currentPosition = 0;
 			enc->errors = 0;
-			return SUCCESS;
+			return ML_SUCCESS;
 		}
 		enc->buf = NULL;
 		enc->totalSpace = 0;
 		enc->usedSpace = 0;
 		enc->currentPosition = 0;
 		enc->errors = 1;
-		return FAIL;
+		return ML_FAIL;
 	}
 
-	LIBEXPORT uint16_t MLE_finalize(ml_encoder_t* enc) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint16_t MLE_finalize(ml_encoder_t* enc) {
 		if(enc->buf != NULL) {
 			enc->buf = NULL;
 			return enc->usedSpace;
@@ -124,7 +122,7 @@
 		return 0;
 	}
 
-	LIBEXPORT error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length, uint16_t totalLength) ATTR_TINYOS_AT_C {
+	LIBEXPORT ml_error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length, uint16_t totalLength) {
 		if(buffer != NULL) {
 			if(length >= 2) {
 				enc->buf = buffer;
@@ -132,7 +130,7 @@
 				enc->usedSpace = length;
 				enc->currentPosition = MLD_getObjectCount(buffer, length);
 				enc->errors = 0;
-				if((enc->currentPosition > 0) && (enc->usedSpace > 0)) return SUCCESS;
+				if((enc->currentPosition > 0) && (enc->usedSpace > 0)) return ML_SUCCESS;
 			}
 			else {
 				return MLE_initialize(enc, buffer, totalLength);
@@ -143,17 +141,17 @@
 		enc->usedSpace = 0;
 		enc->currentPosition = 0;
 		enc->errors = 1;
-		return FAIL;
+		return ML_FAIL;
 	}
 
-	LIBEXPORT uint8_t MLE_deleteObject(ml_encoder_t* enc, uint8_t number) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_deleteObject(ml_encoder_t* enc, uint8_t number) {
 		ml_iterator_t iter;
 		ml_object_t object;
 		uint8_t i, j;
 		uint16_t delOffset = 0;
 		uint8_t currentDel = number;
 		if(enc->buf != NULL) {
-			if(MLI_initialize(&iter, enc->buf, enc->usedSpace) == SUCCESS) {
+			if(MLI_initialize(&iter, enc->buf, enc->usedSpace) == ML_SUCCESS) {
 				while(1) { // Loop forever :)
 					i = 0;
 					while((j = MLI_nextWithSubject(&iter, currentDel, &object)) > 0) {
@@ -188,7 +186,7 @@
 
 	// Private/Protected functions
 
-	uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C {
+	uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint16_t length) {
 		uint8_t typeSize = pMLE_sizeOfUnsigned(type);
 		uint8_t subjectSize = (subject != 0) ? 1 : 0;
 		uint8_t valueSize = (value != NULL) ? pMLE_sizeOf(*value) : 0;
@@ -212,24 +210,24 @@
 		return 0; // Unsuccessful
 	}
 
-	uint8_t pMLE_sizeOf(int32_t value) ATTR_TINYOS_AT_C {
+	uint8_t pMLE_sizeOf(int32_t value) {
 		if(value == (int8_t)value) return 1;
 		else if(value == (int16_t)value) return 2;
 		return 4;
 	}
 
-	uint8_t pMLE_sizeOfUnsigned(uint32_t value) ATTR_TINYOS_AT_C {
+	uint8_t pMLE_sizeOfUnsigned(uint32_t value) {
 		if(value == (uint8_t)value) return 1;
 		else if(value == (uint16_t)value) return 2;
 		return 4;
 	}
 
-	void pMLE_appendUnsignedByte(ml_encoder_t* enc, uint8_t value) ATTR_TINYOS_AT_C {
+	void pMLE_appendUnsignedByte(ml_encoder_t* enc, uint8_t value) {
 		enc->buf[enc->usedSpace] = value;
 		enc->usedSpace++;
 	}
 
-	void pMLE_appendInteger(ml_encoder_t* enc, uint8_t size, int32_t value) ATTR_TINYOS_AT_C {
+	void pMLE_appendInteger(ml_encoder_t* enc, uint8_t size, int32_t value) {
 		switch(size) {
 			case 1:
 				*((int8_t*)(enc->buf + enc->usedSpace)) = (int8_t)value;
@@ -248,7 +246,7 @@
 		}
 	}
 
-	void pMLE_appendUnsignedInteger(ml_encoder_t* enc, uint8_t size, uint32_t value) ATTR_TINYOS_AT_C {
+	void pMLE_appendUnsignedInteger(ml_encoder_t* enc, uint8_t size, uint32_t value) {
 		switch(size) {
 			case 1:
 				*((uint8_t*)(enc->buf + enc->usedSpace)) = (uint8_t)value;
@@ -267,7 +265,7 @@
 		}
 	}
 
-	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint16_t offset, uint8_t number) ATTR_TINYOS_AT_C {
+	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint16_t offset, uint8_t number) {
 		ml_object_t object;
 		uint16_t i;
 		uint16_t lastOffset;
@@ -294,6 +292,6 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLE_encoderSize() ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_encoderSize() {
 		return sizeof(ml_encoder_t);
 	}

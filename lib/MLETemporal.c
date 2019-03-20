@@ -36,7 +36,7 @@
  */
 #include "MLETemporal.h"
 
-	LIBEXPORT uint8_t MLE_appendTemporalInterval(ml_encoder_t* enc, temporal_interval_t* interval) ATTR_TINYOS_AT_C {
+	LIBEXPORT uint8_t MLE_appendTemporalInterval(ml_encoder_t* enc, temporal_interval_t* interval) {
         uint8_t positionBefore = enc->currentPosition; // We try to append, but if space runs out, we can roll back
         uint8_t usedBefore = enc->usedSpace; // We try to append, but if space runs out, we can roll back
         uint8_t subject = 0;

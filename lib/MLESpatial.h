@@ -39,7 +39,7 @@
 #define MLESPATIAL_H_
 #include "MLE.h"
 
-LIBEXPORT uint8_t MLE_appendSpatialInterval(ml_encoder_t* enc, spatial_interval_t* interval) ATTR_TINYOS_AT_C;
-LIBEXPORT uint8_t MLE_appendPoint2D(ml_encoder_t* enc, int32_t x, int32_t y, uint8_t subject, int32_t* value) ATTR_TINYOS_AT_C;
+LIBEXPORT uint8_t MLE_appendSpatialInterval(ml_encoder_t* enc, spatial_interval_t* interval);
+LIBEXPORT uint8_t MLE_appendPoint2D(ml_encoder_t* enc, int32_t x, int32_t y, uint8_t subject, int32_t* value);
 
 #endif /* MLESPATIAL_H_ */

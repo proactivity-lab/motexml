@@ -36,7 +36,7 @@
  */
 #include "MLESpatial.h"
 
-    LIBEXPORT uint8_t MLE_appendSpatialInterval(ml_encoder_t* enc, spatial_interval_t* interval) ATTR_TINYOS_AT_C {
+    LIBEXPORT uint8_t MLE_appendSpatialInterval(ml_encoder_t* enc, spatial_interval_t* interval) {
         uint8_t positionBefore = enc->currentPosition; // We try to append, but if space runs out, we can roll back
         uint8_t usedBefore = enc->usedSpace; // We try to append, but if space runs out, we can roll back
         uint8_t subject = 0; // Position of the interval object
@@ -105,7 +105,7 @@
         return 0;
     }
 
-    LIBEXPORT uint8_t MLE_appendPoint2D(ml_encoder_t* enc, int32_t x, int32_t y, uint8_t subject, int32_t* value) ATTR_TINYOS_AT_C {
+    LIBEXPORT uint8_t MLE_appendPoint2D(ml_encoder_t* enc, int32_t x, int32_t y, uint8_t subject, int32_t* value) {
         uint8_t positionBefore = enc->currentPosition; // We try to append, but if space runs out, we can roll back
         uint8_t usedBefore = enc->usedSpace; // We try to append, but if space runs out, we can roll back
         uint8_t position = 0; // Position of the interval object

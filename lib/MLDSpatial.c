@@ -37,13 +37,11 @@
 #include "MLDSpatial.h"
 #include "MLD.h"
 
-#ifndef __tinyos__
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#endif /* __tinyos__ */
 
-	uint8_t MLDSpatial_getIntervalWithIndex(uint8_t ndex, uint8_t *buffer, uint8_t length, spatial_interval_t *interval) ATTR_TINYOS_AT_C {
+	uint8_t MLDSpatial_getIntervalWithIndex(uint8_t ndex, uint8_t *buffer, uint8_t length, spatial_interval_t *interval) {
 		ml_object_t object;
 		uint8_t locIndex = 0;
 		int32_t value = 0;
@@ -121,7 +119,7 @@
 		return 0;
 	}
 
-	uint8_t MLDSpatial_findIntervalWithSubject(uint8_t subject, uint8_t *buffer, uint8_t length, spatial_interval_t *interval) ATTR_TINYOS_AT_C {
+	uint8_t MLDSpatial_findIntervalWithSubject(uint8_t subject, uint8_t *buffer, uint8_t length, spatial_interval_t *interval) {
 		ml_object_t object;
 		uint8_t ndex = 0;
 		ndex = MLD_findObjectWithParameters(dt_spiC, &subject, NULL, buffer, length, &object);
@@ -137,7 +135,7 @@
 		return (int32_t)sqrt((double)(xdiff*xdiff + ydiff*ydiff));
 	}
 
-	bool MLDSpatial_intersectCircleLine(int32_t cx, int32_t cy, int32_t cr, int32_t lx1, int32_t ly1, int32_t lx2, int32_t ly2) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_intersectCircleLine(int32_t cx, int32_t cy, int32_t cr, int32_t lx1, int32_t ly1, int32_t lx2, int32_t ly2) {
 		// http://www.allegro.cc/forums/thread/589720/644831#target
 		float A = cx - lx1;
 		float B = cy - ly1;
@@ -167,7 +165,7 @@
 		return FALSE;
 	}
 
-	void MLDSpatial_constructFourCorners(spatial_interval_t* intervalV, int32_t x[], int32_t y[]) ATTR_TINYOS_AT_C {
+	void MLDSpatial_constructFourCorners(spatial_interval_t* intervalV, int32_t x[], int32_t y[]) {
 		if(intervalV->v.x[0] <= intervalV->v.x[1]) {
 			x[0] = intervalV->v.x[0];
 			x[1] = intervalV->v.x[1];
@@ -194,13 +192,13 @@
 		}
 	}
 
-	bool MLDSpatial_pointInsideParallelRectangle(int32_t x, int32_t y, int32_t rx[], int32_t ry[]) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_pointInsideParallelRectangle(int32_t x, int32_t y, int32_t rx[], int32_t ry[]) {
 		// Rectangle parallel to axis
 		if((x >= rx[0]) && (x <= rx[3]) && (y >= ry[0]) && (y <= ry[3])) return TRUE;
 		return FALSE;
 	}
 
-	bool MLDSpatial_linesIntersect(int32_t lx1, int32_t ly1, int32_t lx2, int32_t ly2, int32_t lx3, int32_t ly3, int32_t lx4, int32_t ly4) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_linesIntersect(int32_t lx1, int32_t ly1, int32_t lx2, int32_t ly2, int32_t lx3, int32_t ly3, int32_t lx4, int32_t ly4) {
 		int32_t uat = (lx4 - lx3)*(ly1 - ly3) - (ly4 - ly3)*(lx1 - lx3);
 		int32_t ubt = (lx2 - lx1)*(ly1 - ly3) - (ly2 - ly1)*(lx1 - lx3);
 		int32_t u_b = (ly4 - ly3)*(lx2 - lx1) - (lx4 - lx3)*(ly2 - ly1);
@@ -211,31 +209,25 @@
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiASpiC(spatial_interval_t *intervalA, spatial_interval_t *intervalC) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiASpiC(spatial_interval_t *intervalA, spatial_interval_t *intervalC) {
 		// TODO
-#ifndef __tinyos__
 		printf("Warning: spiA overlap functions not implemented and always return FALSE!\n");
-#endif
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiA(spatial_interval_t *interval1, spatial_interval_t *interval2) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiA(spatial_interval_t *interval1, spatial_interval_t *interval2) {
 		// TODO
-#ifndef __tinyos__
 		printf("Warning: spiA overlap functions not implemented and always return FALSE!\n");
-#endif
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiASpiV(spatial_interval_t *intervalA, spatial_interval_t *intervalV) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiASpiV(spatial_interval_t *intervalA, spatial_interval_t *intervalV) {
 		// TODO
-#ifndef __tinyos__
 		printf("Warning: spiA overlap functions not implemented and always return FALSE!\n");
-#endif
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiCSpiV(spatial_interval_t *intervalC, spatial_interval_t *intervalV) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiCSpiV(spatial_interval_t *intervalC, spatial_interval_t *intervalV) {
 		int32_t x[4];
 		int32_t y[4];
 
@@ -259,13 +251,13 @@
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiC(spatial_interval_t *interval1, spatial_interval_t *interval2) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiC(spatial_interval_t *interval1, spatial_interval_t *interval2) {
 		int32_t d = MLDSpatial_distance(interval1->c.x, interval1->c.y, interval2->c.x, interval2->c.y);
 		if(d < interval1->c.r + interval2->c.r) return TRUE;
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlapSpiV(spatial_interval_t *interval1, spatial_interval_t *interval2) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlapSpiV(spatial_interval_t *interval1, spatial_interval_t *interval2) {
 		int32_t sx1[4];
 		int32_t sy1[4];
 		int32_t sx2[4];
@@ -293,7 +285,7 @@
 		return FALSE;
 	}
 
-	bool MLDSpatial_overlap(spatial_interval_t* interval1, spatial_interval_t* interval2) ATTR_TINYOS_AT_C {
+	bool MLDSpatial_overlap(spatial_interval_t* interval1, spatial_interval_t* interval2) {
 		if((interval1 != NULL) && (interval2 != NULL)) {
 			if(interval1->type == dt_spiC) {
 				if(interval2->type == dt_spiC) return MLDSpatial_overlapSpiC(interval1, interval2);

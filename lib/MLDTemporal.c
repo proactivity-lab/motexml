@@ -37,21 +37,13 @@
 #include "MLDTemporal.h"
 #include "MLD.h"
 
-#ifndef __tinyos__
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#endif /* __tinyos__ */
 
-#ifndef __tinyos__
+	extern uint32_t MLDTemporal_timeNow();
 
-	uint32_t MLDTemporal_timeNow() ATTR_TINYOS_AT_C {
-		return time(NULL);
-	}
-
-#endif /* __tinyos__ */
-
-	uint8_t MLDTemporal_getIntervalWithIndex(uint8_t ndex, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) ATTR_TINYOS_AT_C {
+	uint8_t MLDTemporal_getIntervalWithIndex(uint8_t ndex, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) {
 		ml_object_t object;
 		if(MLD_getObjectWithIndex(ndex,buffer,length,&object) == ndex) {
 			if(object.valueIsPresent) {
@@ -78,7 +70,7 @@
 		return 0;
 	}
 
-	uint8_t MLDTemporal_findIntervalWithSubject(uint8_t subject, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) ATTR_TINYOS_AT_C {
+	uint8_t MLDTemporal_findIntervalWithSubject(uint8_t subject, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) {
 		ml_object_t object;
 		uint8_t ndex = 0;
 		ndex = MLD_findObjectWithParameters(dt_timeR, &subject, NULL, buffer, length, &object); // Search for relative temporal interval
@@ -87,7 +79,7 @@
 		return 0;
 	}
 
-	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval) ATTR_TINYOS_AT_C {
+	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval) {
 		if(interval != NULL) {
 			if(interval->type == dt_timeR) {
 				interval->type = dt_timeAbs;
@@ -98,7 +90,7 @@
 		return FAIL;
 	}
 
-	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval) ATTR_TINYOS_AT_C {
+	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval) {
 		if(interval != NULL) {
 			if(interval->type == dt_timeAbs) {
 				interval->type = dt_timeR;
@@ -109,7 +101,7 @@
 		return FAIL;
 	}
 
-	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2) ATTR_TINYOS_AT_C {
+	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2) {
 		uint32_t start1 = 0;
 		uint32_t start2 = 0;
 		if((interval1 != NULL) && (interval2 != NULL)) {

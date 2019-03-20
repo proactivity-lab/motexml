@@ -44,7 +44,7 @@
 	 * @param type Object type.
 	 * @return TRUE or FALSE
 	 */
-	bool MLObjects_isSimpleConditionObject(int32_t type) ATTR_TINYOS_AT_C;
+	bool MLObjects_isSimpleConditionObject(int32_t type);
 
 	/**
 	 * Check if the object type is one of known temporal types.
@@ -52,7 +52,7 @@
 	 * @param type Object type.
 	 * @return TRUE or FALSE
 	 */
-	bool MLObjects_isSpatialObject(int32_t type) ATTR_TINYOS_AT_C;
+	bool MLObjects_isSpatialObject(int32_t type);
 
 	/**
 	 * Check if the object type is one of known spatial types.
@@ -60,6 +60,6 @@
 	 * @param type Object type.
 	 * @return TRUE or FALSE
 	 */
-	bool MLObjects_isTemporalObject(int32_t type) ATTR_TINYOS_AT_C;
+	bool MLObjects_isTemporalObject(int32_t type);
 
 #endif /* MLOBJECTS_H_ */

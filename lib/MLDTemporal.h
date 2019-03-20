@@ -41,22 +41,20 @@
 #include "MLDTemporal.h"
 #include "MLD.h"
 
-#ifndef __tinyos__
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#endif /* __tinyos__ */
 
-	uint32_t MLDTemporal_timeNow() ATTR_TINYOS_AT_C;
+	uint32_t MLDTemporal_timeNow();
 
-	uint8_t MLDTemporal_getIntervalWithIndex(uint8_t ndex, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) ATTR_TINYOS_AT_C;
+	uint8_t MLDTemporal_getIntervalWithIndex(uint8_t ndex, uint8_t buffer[], uint8_t length, temporal_interval_t* interval);
 
-	uint8_t MLDTemporal_findIntervalWithSubject(uint8_t subject, uint8_t buffer[], uint8_t length, temporal_interval_t* interval) ATTR_TINYOS_AT_C;
+	uint8_t MLDTemporal_findIntervalWithSubject(uint8_t subject, uint8_t buffer[], uint8_t length, temporal_interval_t* interval);
 
-	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval) ATTR_TINYOS_AT_C;
+	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval);
 
-	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval) ATTR_TINYOS_AT_C;
+	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval);
 
-	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2) ATTR_TINYOS_AT_C;
+	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2);
 
 #endif /* TEMPORALINTERVAL_H_ */

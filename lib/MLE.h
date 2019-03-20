@@ -38,9 +38,7 @@
 #define MLE_H_
 #include "ML.h"
 
-#ifndef __tinyos__
 #include <stdio.h>
-#endif /* __tinyos__ */
 
 	/**
 	 * ml_encoder_t
@@ -61,14 +59,14 @@
 	 * @param length
 	 * @return
 	 */
-	LIBEXPORT error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT ml_error_t MLE_initialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length);
 
 	/**
 	 * Finalizes the buffer.
 	 *
 	 * @return Length of the data in the buffer.
 	 */
-	LIBEXPORT uint16_t MLE_finalize(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_finalize(ml_encoder_t* enc);
 
 	/**
 	 * Reinitialize an encoder with the buffer for additional appends and editing.
@@ -79,7 +77,7 @@
 	 * @param totalLength Total length of the buffer, >= length.
 	 * @return SUCCESS, if the contents of the buffer made sense.
 	 */
-	LIBEXPORT error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length, uint16_t totalLength) ATTR_TINYOS_AT_C;
+	LIBEXPORT ml_error_t MLE_reinitialize(ml_encoder_t* enc, uint8_t buffer[], uint16_t length, uint16_t totalLength);
 
 	/**
 	 * Append object with the specified parameters.
@@ -90,7 +88,7 @@
 	 * @param value - Value, can be NULL.
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendObjectWithValues(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendObjectWithValues(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value);
 
 	/**
 	 * Append object.
@@ -99,7 +97,7 @@
 	 * @param object - The object.
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendObject(ml_encoder_t* enc, ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendObject(ml_encoder_t* enc, ml_object_t* object);
 
 	/**
 	 * Append object with the specified parameters.
@@ -110,7 +108,7 @@
 	 * @param value
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendOSV(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendOSV(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value);
 
 	/**
 	 * Append top-level object with value.
@@ -120,7 +118,7 @@
 	 * @param value
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendOV(ml_encoder_t* enc, uint32_t type, int32_t value) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendOV(ml_encoder_t* enc, uint32_t type, int32_t value);
 
 	/**
 	 * Append object with subject, but no value.
@@ -130,7 +128,7 @@
 	 * @param subject
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendOS(ml_encoder_t* enc, uint32_t type, uint8_t subject) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendOS(ml_encoder_t* enc, uint32_t type, uint8_t subject);
 
 	/**
 	 * Append a top-level object with no value.
@@ -138,7 +136,7 @@
 	 * @param type
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendO(ml_encoder_t* enc, uint32_t type);
 
 	/**
 	 * Append an object with a buffer and no value.
@@ -149,7 +147,7 @@
 	 * @param length - Data buffer length.
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendOSB(ml_encoder_t* enc, uint32_t type, uint8_t subject, uint8_t buffer[], uint8_t length);
 
 	/**
 	 * Append an object with a buffer and value.
@@ -161,13 +159,13 @@
 	 * @param length - Data buffer length.
 	 * @return
 	 */
-	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_appendOSVB(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint8_t length);
 
-	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_spaceLeft(ml_encoder_t* enc);
 
-	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint16_t MLE_spaceUsed(ml_encoder_t* enc);
 
-	LIBEXPORT uint8_t MLE_errors(ml_encoder_t* enc) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_errors(ml_encoder_t* enc);
 
 	/**
 	 * Deletes the object at the specified location, and all sub-objects.
@@ -175,21 +173,21 @@
 	 * @return Index of the deleted object or 0 if failed to delete. The buffer is no longer valid,
 	 * if 0 was returned(probably was invalid before and that is why the delete failed).
 	 */
-	LIBEXPORT uint8_t MLE_deleteObject(ml_encoder_t* enc, uint8_t number) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_deleteObject(ml_encoder_t* enc, uint8_t number);
 
 	/* Protected */
 
-    uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint16_t length) ATTR_TINYOS_AT_C;
-	uint8_t pMLE_sizeOf(int32_t value) ATTR_TINYOS_AT_C;
-	uint8_t pMLE_sizeOfUnsigned(uint32_t value) ATTR_TINYOS_AT_C;
-	void pMLE_appendUnsignedByte(ml_encoder_t* enc, uint8_t value) ATTR_TINYOS_AT_C;
-	void pMLE_appendInteger(ml_encoder_t* enc, uint8_t size, int32_t value) ATTR_TINYOS_AT_C;
-	void pMLE_appendUnsignedInteger(ml_encoder_t* enc, uint8_t size, uint32_t value) ATTR_TINYOS_AT_C;
-	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint16_t offset, uint8_t number) ATTR_TINYOS_AT_C;
+    uint8_t pMLE_append(ml_encoder_t* enc, uint32_t type, uint8_t subject, int32_t* value, uint8_t buffer[], uint16_t length);
+	uint8_t pMLE_sizeOf(int32_t value);
+	uint8_t pMLE_sizeOfUnsigned(uint32_t value);
+	void pMLE_appendUnsignedByte(ml_encoder_t* enc, uint8_t value);
+	void pMLE_appendInteger(ml_encoder_t* enc, uint8_t size, int32_t value);
+	void pMLE_appendUnsignedInteger(ml_encoder_t* enc, uint8_t size, uint32_t value);
+	uint8_t pMLE_deleteObjectAt(ml_encoder_t* enc, uint16_t offset, uint8_t number);
 
 	/**
 	 * Information for memory allocation in Python.
 	 */
-	LIBEXPORT uint8_t MLE_encoderSize() ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLE_encoderSize();
 
 #endif /* MLE_H_ */

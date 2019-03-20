@@ -39,6 +39,6 @@
 #define MLETEMPORAL_H_
 #include "MLE.h"
 
-LIBEXPORT uint8_t MLE_appendTemporalInterval(ml_encoder_t* enc, temporal_interval_t* interval) ATTR_TINYOS_AT_C;
+LIBEXPORT uint8_t MLE_appendTemporalInterval(ml_encoder_t* enc, temporal_interval_t* interval);
 
 #endif /* MLETEMPORAL_H_ */

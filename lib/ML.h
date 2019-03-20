@@ -36,8 +36,14 @@
  */
 #ifndef ML_H_
 #define ML_H_
-#include "prolab_types.h"
-#include "dt_types.h"
+
+#include <stdint.h>
+
+	typedef uint8_t ml_error_t;
+	enum MLErrorsEnum {
+		ML_SUCCESS = 0,
+		ML_FAIL    = 1
+	};
 
 /**
  * Decoded ML object struct.

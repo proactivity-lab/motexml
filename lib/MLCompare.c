@@ -40,11 +40,9 @@
 #include "MLDSpatial.h"
 #include "MLObjects.h"
 
-#ifndef __tinyos__
 #include <stdio.h>
-#endif /* __tinyos__ */
 
-	error_t MLCompare_initialize(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	error_t MLCompare_initialize(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) {
 		int32_t position = 1;
 		ml_object_t object;
 
@@ -120,7 +118,7 @@
 		return FAIL;
 	}
 
-	bool MLCompare_satisfies(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	bool MLCompare_satisfies(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) {
 		if(cmp->initialized == TRUE) {
 			if(MLCompare_satisfiesSimpleConditions(cmp, buffer, length)) {
 				if(MLCompare_satisfiesTemporalConditions(cmp, buffer, length)) {
@@ -131,7 +129,7 @@
 		return FALSE; // Conditions not initialized
 	}
 
-	bool MLCompare_satisfiesSimpleConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	bool MLCompare_satisfiesSimpleConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) {
 		ml_object_t object;
 		uint8_t ndex = 0;
 		uint8_t i = 0;
@@ -191,7 +189,7 @@
 		return TRUE; // Went through all conditions and all were met
 	}
 
-	bool MLCompare_satisfiesTemporalConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	bool MLCompare_satisfiesTemporalConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) {
 		uint8_t i = 0;
 		uint8_t j = 0;
 		temporal_interval_t interval;
@@ -230,7 +228,7 @@
 		return TRUE;
 	}
 
-	bool MLCompare_satisfiesSpatialConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C {
+	bool MLCompare_satisfiesSpatialConditions(ml_compare_t* cmp, uint8_t buffer[], uint8_t length) {
 		uint8_t i = 0;
 		uint8_t j = 0;
 		spatial_interval_t interval;
@@ -278,20 +276,11 @@
 		return TRUE; // All conditions met
 	}
 
-#ifdef __tinyos__
-
-	void MLCompare_printConditions() ATTR_TINYOS_AT_C { }
-	void MLCompare_printFailReasonNotPresent(int32_t type, bool value) ATTR_TINYOS_AT_C { }
-	void MLCompare_printFailReason(int32_t type, uint8_t oper, int32_t cvalue, int32_t ovalue) ATTR_TINYOS_AT_C { }
-	error_t MLCompare_operatorToString(uint8_t value, char *buf, uint8_t length) ATTR_TINYOS_AT_C { return FAIL; }
-
-#else
-
 	/*
 	 * Debugging functions
 	 * */
 
-	void MLCompare_printConditions(ml_compare_t* cmp) ATTR_TINYOS_AT_C {
+	void MLCompare_printConditions(ml_compare_t* cmp) {
 		printf("cnd\toper\ttype\tvalue\n");
 		for(int i=0;i<cmp->condition_count;i++) {
 			char oper[3] = {0, 0, 0};
@@ -311,17 +300,17 @@
 		printf("\n");
 	}
 
-	void MLCompare_printFailReasonNotPresent(int32_t type, bool value) ATTR_TINYOS_AT_C {
+	void MLCompare_printFailReasonNotPresent(int32_t type, bool value) {
 		printf("%d %s not present\n", type, value ? "value": "");
 	}
 
-	void MLCompare_printFailReason(int32_t type, uint8_t oper, int32_t cvalue, int32_t ovalue) ATTR_TINYOS_AT_C {
+	void MLCompare_printFailReason(int32_t type, uint8_t oper, int32_t cvalue, int32_t ovalue) {
 		char soper[4] = {0, 0, 0, 0};
 		MLCompare_operatorToString(oper, soper, 3);
 		printf("%d value: %d %s %d\n", type, ovalue, soper, cvalue);
 	}
 
-	error_t MLCompare_operatorToString(uint8_t value, char *buf, uint8_t length) ATTR_TINYOS_AT_C {
+	error_t MLCompare_operatorToString(uint8_t value, char *buf, uint8_t length) {
 		if(length >= 3) {
 			switch(value) {
 				case dt_present:
@@ -375,5 +364,3 @@
 		}
 		return FAIL;
 	}
-
-#endif /* __tinyos__ */

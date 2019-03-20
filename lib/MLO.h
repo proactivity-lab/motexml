@@ -38,32 +38,32 @@
 #define MLO_H_
 #include "ML.h"
 
-	LIBEXPORT uint8_t MLO_getIndex(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLO_getIndex(ml_object_t* object);
 
-	LIBEXPORT uint32_t MLO_getType(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint32_t MLO_getType(ml_object_t* object);
 
-	LIBEXPORT int32_t MLO_getValue(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT int32_t MLO_getValue(ml_object_t* object);
 
-	LIBEXPORT bool MLO_getValueIsPresent(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT bool MLO_getValueIsPresent(ml_object_t* object);
 
-	LIBEXPORT uint8_t MLO_getSubject(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLO_getSubject(ml_object_t* object);
 
-	LIBEXPORT uint8_t* MLO_getBuffer(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t* MLO_getBuffer(ml_object_t* object);
 
-	LIBEXPORT uint8_t MLO_getBufferLength(ml_object_t* object) ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLO_getBufferLength(ml_object_t* object);
 
-	LIBEXPORT void MLO_setIndex(ml_object_t* object, uint8_t ndex) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setIndex(ml_object_t* object, uint8_t ndex);
 
-	LIBEXPORT void MLO_setType(ml_object_t* object, uint32_t type) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setType(ml_object_t* object, uint32_t type);
 
-	LIBEXPORT void MLO_setValue(ml_object_t* object, int32_t value) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setValue(ml_object_t* object, int32_t value);
 
-	LIBEXPORT void MLO_setValueIsPresent(ml_object_t* object, bool present) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setValueIsPresent(ml_object_t* object, bool present);
 
-	LIBEXPORT void MLO_setSubject(ml_object_t* object, uint8_t subject) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setSubject(ml_object_t* object, uint8_t subject);
 
-	LIBEXPORT void MLO_setBuffer(ml_object_t* object, uint8_t buffer[], uint8_t length) ATTR_TINYOS_AT_C;
+	LIBEXPORT void MLO_setBuffer(ml_object_t* object, uint8_t buffer[], uint8_t length);
 
-	LIBEXPORT uint8_t MLO_objectSize() ATTR_TINYOS_AT_C;
+	LIBEXPORT uint8_t MLO_objectSize();
 
 #endif /* MLO_H_ */
