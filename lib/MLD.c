@@ -37,7 +37,6 @@
 #include "MLD.h"
 
 #include <stdio.h> // Needed for NULL
-#include <math.h>
 #include <stdbool.h>
 
 	uint8_t pMLD_readUnsignedByte(uint8_t* bstart) {

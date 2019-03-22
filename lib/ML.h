@@ -38,6 +38,7 @@
 #define ML_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 	typedef uint8_t ml_error_t;
 	enum MLErrorsEnum {
