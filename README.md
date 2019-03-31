@@ -1,9 +1,10 @@
 
-# Mote "XML" Library.
+# Mote Messaging Language / Format Library.
 
-The MoteXML format is a subject-object-value data encoding format for which
-the human-readable representation is commonly presented using XML and a toolset
-exists for easily shifting between the XML and binary representations.
+The Mote Messaging Language or Mote"XML" format is a subject-object-value data
+encoding format for which the human-readable representation is commonly
+presented using XML and a toolset exists for easily shifting between the XML and
+binary representations.
 
 This document gives an overview of protocol version 1 only!
 
@@ -55,7 +56,7 @@ each time.
 
 ## Library
 On a Linux system the encoder/decoder functions can be used by linking against
-the libmotexml library. The library is also a dependance for the Python tools
+the libmlformat library. The library is also a dependance for the Python tools
 described in the Tools chapter. The library can be built with make in the lib
 directory.
 
