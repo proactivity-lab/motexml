@@ -46,7 +46,7 @@
 #endif /* MLI_ICOPY_MAX_STACK */
 
 	typedef struct ml_iterator_t {
-		uint8_t* buf;
+		const uint8_t* buf;
 		uint16_t length;
 		uint16_t offset;
 		uint16_t nextOffset;
@@ -62,7 +62,7 @@
 	 *
 	 * @return Normally SUCCESS, only FAIL if buffer is NULL.
 	 */
-	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length);
+	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, const uint8_t buffer[], uint16_t length);
 
 	/**
 	 * Resets the iterator to the first object in the previously provided buffer.
@@ -102,7 +102,7 @@
 	 * @param enc Initialized encoder for the new tree.
 	 * @return 0 if fails(contents of enc are unaltered, but errors is incremented) index of copied tree root otherwise.
 	 */
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sbuffer, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc);
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, const uint8_t* sbuffer, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc);
 
 	/* Protected */
 	uint16_t MLI_getCurrentOffset(ml_iterator_t* iter);
