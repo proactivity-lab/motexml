@@ -79,26 +79,26 @@
 		return 0;
 	}
 
-	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval) {
+	ml_error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval) {
 		if(interval != NULL) {
 			if(interval->type == dt_timeR) {
 				interval->type = dt_timeAbs;
 				interval->start = MLDTemporal_timeNow() - interval->elapsed;
-				return SUCCESS;
+				return ML_SUCCESS;
 			}
 		}
-		return FAIL;
+		return ML_FAIL;
 	}
 
-	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval) {
+	ml_error_t MLDTemporal_changeToRelative(temporal_interval_t* interval) {
 		if(interval != NULL) {
 			if(interval->type == dt_timeAbs) {
 				interval->type = dt_timeR;
 				interval->elapsed = MLDTemporal_timeNow() - interval->start;
-				return SUCCESS;
+				return ML_SUCCESS;
 			}
 		}
-		return FAIL;
+		return ML_FAIL;
 	}
 
 	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2) {
