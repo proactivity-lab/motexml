@@ -39,6 +39,8 @@
 #include "MLD.h"
 #include "MLI.h"
 
+#include "LOG.h"
+
 #include <stdio.h> // Needed for NULL
 #include <string.h>
 
@@ -234,7 +236,8 @@
 				enc->usedSpace += 1;
 				break;
 			case 2:
-				*((int16_t*)(enc->buf + enc->usedSpace)) = (int16_t)value;
+				*(enc->buf + enc->usedSpace) = (value & 0xFF00);
+				*(enc->buf + enc->usedSpace + 1) = (value & 0x00FF); // TODO MIGHT BE WRONG
 				enc->usedSpace += 2;
 				break;
 			case 4:

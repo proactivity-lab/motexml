@@ -51,9 +51,9 @@
 
 	uint8_t MLDTemporal_findIntervalWithSubject(uint8_t subject, uint8_t buffer[], uint8_t length, temporal_interval_t* interval);
 
-	ml_error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval);
+	error_t MLDTemporal_changeToAbsolute(temporal_interval_t* interval);
 
-	ml_error_t MLDTemporal_changeToRelative(temporal_interval_t* interval);
+	error_t MLDTemporal_changeToRelative(temporal_interval_t* interval);
 
 	bool MLDTemporal_overlap(temporal_interval_t* interval1, temporal_interval_t* interval2);
 

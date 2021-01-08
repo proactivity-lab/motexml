@@ -25,8 +25,7 @@ OPTIONS+=" --pkglicense=BSD"
 OPTIONS+=" --maintainer=prolab"
 
 #OPTIONS+=" --exclude /usr/lib/python3"  # running lsb_release in a fresh container will make a pyc file there otherwise
-OPTIONS+=" --exclude $(realpath $PAK_DIR/..)"    # anything created during compilation
+OPTIONS+=" --exclude $PAK_DIR/../"       # anything created during compilation
 
 # Run checkinstall
-echo $OPTIONS
 checkinstall $OPTIONS

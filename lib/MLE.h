@@ -188,6 +188,6 @@
 	/**
 	 * Information for memory allocation in Python.
 	 */
-	LIBEXPORT uint8_t MLE_encoderSize();
+	LIBEXPORT uint8_t MLE_encoderSize(void);
 
 #endif /* MLE_H_ */

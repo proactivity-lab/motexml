@@ -39,11 +39,11 @@
 #include <stdio.h> // Needed for NULL
 #include <stdbool.h>
 
-	uint8_t pMLD_readUnsignedByte(const uint8_t* bstart) {
+	uint8_t pMLD_readUnsignedByte(uint8_t* bstart) {
 		return *bstart;
 	}
 
-	int32_t pMLD_readInteger(uint8_t num, const uint8_t* bstart) {
+	int32_t pMLD_readInteger(uint8_t num, uint8_t* bstart) {
 		switch(num) {
 			case 1:
 				return *((int8_t*)bstart);
@@ -56,7 +56,7 @@
 		}
 	}
 
-	uint32_t pMLD_readUnsignedInteger(uint8_t num, const uint8_t* bstart) {
+	uint32_t pMLD_readUnsignedInteger(uint8_t num, uint8_t* bstart) {
 		switch(num) {
 			case 1:
 				return *((uint8_t*)bstart);
@@ -69,7 +69,7 @@
 		}
 	}
 
-	uint16_t pMLD_getObjectAt(uint16_t offset, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint16_t pMLD_getObjectAt(uint16_t offset, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		uint8_t subjectSize = (buffer[offset] & ML_SUBJ_LOC) >> ML_SUBJ_SHF;
 		uint8_t typeSize    = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		uint8_t valueSize   = (buffer[offset] & ML_VALU_LOC) >> ML_VALU_SHF;
@@ -87,10 +87,7 @@
 
 		if((buffer[offset] & ML_BBUF_LOC)) {
 			object->bufferLength = pMLD_readUnsignedByte(buffer + nextOffset);
-			// FIXME: here we drop const-ness because ml_object_t is shared
-			// between decoder and encoder and buffer cannot be const in latter
-			// use case. Might want to use separate structs for those cases?
-			object->buffer = (uint8_t*) buffer + nextOffset + 1;
+			object->buffer = buffer + nextOffset + 1;
 			nextOffset = nextOffset + 1 + object->bufferLength;
 		}
 		else {
@@ -103,13 +100,13 @@
 		return length + 1; // Over the end of the buffer
 	}
 
-	uint8_t pMLD_getTypeAt(uint16_t offset, const uint8_t buffer[], uint16_t length, uint32_t* type) {
+	uint8_t pMLD_getTypeAt(uint16_t offset, uint8_t buffer[], uint16_t length, uint32_t* type) {
 		uint8_t typeSize = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		*type = pMLD_readUnsignedInteger(typeSize, buffer + offset + 1);
 		return typeSize;
 	}
 
-	uint16_t pMLD_getNextOffset(uint16_t offset, const uint8_t buffer[], uint16_t length) {
+	uint16_t pMLD_getNextOffset(uint16_t offset, uint8_t buffer[], uint16_t length) {
 		uint8_t subjectSize = (buffer[offset] & ML_SUBJ_LOC) >> ML_SUBJ_SHF;
 		uint8_t typeSize    = (buffer[offset] & ML_TYPE_LOC) >> ML_TYPE_SHF;
 		uint8_t valueSize   = (buffer[offset] & ML_VALU_LOC) >> ML_VALU_SHF;
@@ -124,7 +121,7 @@
 		return length + 1; // Over the end of the buffer
 	}
 
-	uint16_t pMLD_getOffsetOf(const uint8_t buffer[], uint16_t length, uint8_t number) {
+	uint16_t pMLD_getOffsetOf(uint8_t buffer[], uint16_t length, uint8_t number) {
 		uint8_t i = 0;
 		uint16_t offset = 0;
 
@@ -138,7 +135,7 @@
 
 	// Public
 
-	uint8_t MLD_getObjectWithIndex(uint8_t ndex, uint8_t const buffer[], uint16_t length, ml_object_t *object) {
+	uint8_t MLD_getObjectWithIndex(uint8_t ndex, uint8_t buffer[], uint16_t length, ml_object_t *object) {
 		uint8_t i = 0;
 		uint16_t offset = 0;
 
@@ -156,7 +153,7 @@
 		return 0;
 	}
 
-	uint8_t MLD_findObjectWithParameters(uint32_t type, const uint8_t* subject, const int32_t* value, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint8_t MLD_findObjectWithParameters(uint32_t type, uint8_t* subject, int32_t* value, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		uint16_t offset = 0;
 		uint8_t position = 0;
 
@@ -180,23 +177,23 @@
 		return 0;
 	}
 
-	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		return MLD_findObjectWithParameters(type, &subject, &value, buffer, length, object);
 	}
 
-	uint8_t MLD_findOV(uint32_t type, int32_t value, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint8_t MLD_findOV(uint32_t type, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		return MLD_findObjectWithParameters(type, NULL, &value, buffer, length, object);
 	}
 
-	uint8_t MLD_findOS(uint32_t type, uint8_t subject, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint8_t MLD_findOS(uint32_t type, uint8_t subject, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		return MLD_findObjectWithParameters(type, &subject, NULL, buffer, length, object);
 	}
 
-	uint8_t MLD_findO(uint32_t type, const uint8_t buffer[], uint16_t length, ml_object_t* object) {
+	uint8_t MLD_findO(uint32_t type, uint8_t buffer[], uint16_t length, ml_object_t* object) {
 		return MLD_findObjectWithParameters(type, NULL, NULL, buffer, length, object);
 	}
 
-	uint8_t MLD_getObjectCount(const uint8_t buffer[], uint16_t length) {
+	uint8_t MLD_getObjectCount(uint8_t buffer[], uint16_t length) {
 		uint16_t offset = 0;
 		uint8_t position = 0;
 

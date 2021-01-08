@@ -40,23 +40,23 @@
 
 //#include <stdio.h>
 
-	uint8_t MLD_getObjectWithIndex(uint8_t ndex, const uint8_t buffer[], uint16_t length, ml_object_t *object);
+	uint8_t MLD_getObjectWithIndex(uint8_t ndex, uint8_t buffer[], uint16_t length, ml_object_t *object);
 
-	uint8_t MLD_findObjectWithParameters(uint32_t type, const uint8_t* subject, const int32_t* value, const uint8_t buffer[], uint16_t length, ml_object_t* object);
-	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, const uint8_t buffer[], uint16_t length, ml_object_t* object);
-	uint8_t MLD_findOV(uint32_t type, int32_t value, const uint8_t buffer[], uint16_t length, ml_object_t* object);
-	uint8_t MLD_findOS(uint32_t type, uint8_t subject, const uint8_t buffer[], uint16_t length, ml_object_t* object);
-	uint8_t MLD_findO(uint32_t type, const uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t MLD_findObjectWithParameters(uint32_t type, uint8_t* subject, int32_t* value, uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t MLD_findOSV(uint32_t type, uint8_t subject, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t MLD_findOV(uint32_t type, int32_t value, uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t MLD_findOS(uint32_t type, uint8_t subject, uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t MLD_findO(uint32_t type, uint8_t buffer[], uint16_t length, ml_object_t* object);
 
-	uint8_t MLD_getObjectCount(const uint8_t buffer[], uint16_t length);
+	uint8_t MLD_getObjectCount(uint8_t buffer[], uint16_t length);
 
 	/* Protected */
 
-	uint8_t pMLD_readUnsignedByte(const uint8_t* bstart);
-	int32_t pMLD_readInteger(uint8_t num, const uint8_t* bstart);
-	uint16_t pMLD_getObjectAt(uint16_t offset, const uint8_t buffer[], uint16_t length, ml_object_t* object);
-	uint8_t pMLD_getTypeAt(uint16_t offset, const uint8_t buffer[], uint16_t length, uint32_t* type);
-	uint16_t pMLD_getNextOffset(uint16_t offset, const uint8_t buffer[], uint16_t length);
-	uint16_t pMLD_getOffsetOf(const uint8_t buffer[], uint16_t length, uint8_t number);
+	uint8_t pMLD_readUnsignedByte(uint8_t* bstart);
+	int32_t pMLD_readInteger(uint8_t num, uint8_t* bstart);
+	uint16_t pMLD_getObjectAt(uint16_t offset, uint8_t buffer[], uint16_t length, ml_object_t* object);
+	uint8_t pMLD_getTypeAt(uint16_t offset, uint8_t buffer[], uint16_t length, uint32_t* type);
+	uint16_t pMLD_getNextOffset(uint16_t offset, uint8_t buffer[], uint16_t length);
+	uint16_t pMLD_getOffsetOf(uint8_t buffer[], uint16_t length, uint8_t number);
 
 #endif /* MLD_H_ */

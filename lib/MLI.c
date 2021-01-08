@@ -39,7 +39,7 @@
 
 #include <stdio.h> // Needed for NULL
 
-	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, const uint8_t buffer[], uint16_t length) {
+	LIBEXPORT ml_error_t MLI_initialize(ml_iterator_t* iter, uint8_t buffer[], uint16_t length) {
 		iter->buf = buffer;
 		iter->length = length;
 		return MLI_reset(iter);
@@ -84,7 +84,7 @@
 		return 0;
 	}
 
-	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, const uint8_t* sb, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) {
+	LIBEXPORT uint8_t MLI_icopy(uint8_t sindex, uint8_t* sb, uint16_t slength, uint8_t dsubject, ml_encoder_t* enc) {
 		ml_encoder_t backup = *enc;
 		ml_iterator_t iter;
 		ml_object_t object;
