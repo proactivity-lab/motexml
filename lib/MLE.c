@@ -234,7 +234,12 @@
 				enc->usedSpace += 1;
 				break;
 			case 2:
+#ifndef __ARMCC_VERSION 
 				*((int16_t*)(enc->buf + enc->usedSpace)) = (int16_t)value;
+#else
+				*(enc->buf + enc->usedSpace) = (value & 0x00FF);
+				*(enc->buf + enc->usedSpace + 1) = (value & 0xFF00);
+#endif
 				enc->usedSpace += 2;
 				break;
 			case 4:

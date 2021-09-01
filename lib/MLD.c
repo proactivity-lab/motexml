@@ -90,7 +90,7 @@
 			// FIXME: here we drop const-ness because ml_object_t is shared
 			// between decoder and encoder and buffer cannot be const in latter
 			// use case. Might want to use separate structs for those cases?
-			object->buffer = (uint8_t*) buffer + nextOffset + 1;
+			object->buffer = (uint8_t*)buffer + nextOffset + 1;
 			nextOffset = nextOffset + 1 + object->bufferLength;
 		}
 		else {
